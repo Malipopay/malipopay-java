@@ -1,0 +1,30 @@
+# Build output
+target/
+build/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+
+# Compiled classes
+*.class
+
+# Package files
+*.jar
+*.war
+*.ear
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.local
