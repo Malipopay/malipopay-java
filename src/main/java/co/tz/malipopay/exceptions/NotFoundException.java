@@ -3,7 +3,7 @@ package co.tz.malipopay.exceptions;
 /**
  * Thrown when the API returns a 404 Not Found response.
  */
-public class NotFoundException extends MaliPoPayException {
+public class NotFoundException extends MalipopayException {
 
     public NotFoundException(String message) {
         super(message, 404, "NOT_FOUND", null);

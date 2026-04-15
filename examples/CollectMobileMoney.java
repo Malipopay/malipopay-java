@@ -1,24 +1,24 @@
 import co.tz.malipopay.ApiResponse;
-import co.tz.malipopay.MaliPoPay;
-import co.tz.malipopay.MaliPoPayConfig;
+import co.tz.malipopay.Malipopay;
+import co.tz.malipopay.MalipopayConfig;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Example: Collect mobile money payment via MaliPoPay.
+ * Example: Collect mobile money payment via Malipopay.
  */
 public class CollectMobileMoney {
 
     public static void main(String[] args) {
         // Initialize the client (defaults to production)
-        MaliPoPay client = new MaliPoPay("your-api-key");
+        Malipopay client = new Malipopay("your-api-key");
 
         // Or use UAT environment for testing
-        // MaliPoPayConfig config = new MaliPoPayConfig.Builder()
-        //         .environment(MaliPoPayConfig.Environment.UAT)
+        // MalipopayConfig config = new MalipopayConfig.Builder()
+        //         .environment(MalipopayConfig.Environment.UAT)
         //         .build();
-        // MaliPoPay client = new MaliPoPay("your-api-key", config);
+        // Malipopay client = new Malipopay("your-api-key", config);
 
         // Build collection parameters
         Map<String, Object> params = new HashMap<>();

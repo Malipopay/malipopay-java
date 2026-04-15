@@ -1,10 +1,10 @@
-# Getting Started with MaliPoPay Java SDK
+# Getting Started with Malipopay Java SDK
 
 ## Prerequisites
 
 - **Java 11 or higher** -- The SDK uses modern Java features like `var`, `HttpClient`, and records.
 - **Maven or Gradle** -- For dependency management.
-- A MaliPoPay account with an API key.
+- A Malipopay account with an API key.
 
 ## Installation
 
@@ -16,7 +16,7 @@ Add the dependency to your `pom.xml`:
 <dependency>
     <groupId>co.tz.malipopay</groupId>
     <artifactId>malipopay-java</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
 </dependency>
 ```
 
@@ -25,37 +25,37 @@ Add the dependency to your `pom.xml`:
 Add the dependency to your `build.gradle`:
 
 ```groovy
-implementation 'co.tz.malipopay:malipopay-java:1.0.0'
+implementation 'co.tz.malipopay:malipopay-java:1.1.0'
 ```
 
 Or with Kotlin DSL (`build.gradle.kts`):
 
 ```kotlin
-implementation("co.tz.malipopay:malipopay-java:1.0.0")
+implementation("co.tz.malipopay:malipopay-java:1.1.0")
 ```
 
 ## Getting Your API Key
 
-1. Sign in to the MaliPoPay dashboard at [app.malipopay.co.tz](https://app.malipopay.co.tz).
+1. Sign in to the Malipopay dashboard at [app.malipopay.co.tz](https://app.malipopay.co.tz).
 2. Navigate to **Settings > API Keys**.
 3. Copy your API key. Keep it secret -- treat it like a password.
 
-> **Tip:** MaliPoPay provides two environments. Your dashboard will show separate API keys for **Production** and **UAT (testing)**. Always start with UAT during development so you don't trigger real mobile money transactions.
+> **Tip:** Malipopay provides two environments. Your dashboard will show separate API keys for **Production** and **UAT (testing)**. Always start with UAT during development so you don't trigger real mobile money transactions.
 
 ## Your First Payment
 
 Here is the fastest way to collect a mobile money payment:
 
 ```java
-import co.tz.malipopay.MaliPoPay;
-import co.tz.malipopay.MaliPoPayConfig;
+import co.tz.malipopay.Malipopay;
+import co.tz.malipopay.MalipopayConfig;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class QuickStart {
     public static void main(String[] args) {
-        MaliPoPay malipopay = new MaliPoPay("your-api-key");
+        Malipopay malipopay = new Malipopay("your-api-key");
 
         Map<String, Object> params = new HashMap<>();
         params.put("amount", 5000);
@@ -73,20 +73,20 @@ When this runs, the customer at `255712345678` receives a USSD push prompt on th
 
 ## Using the Config Builder
 
-For more control, use `MaliPoPayConfig.builder()`:
+For more control, use `MalipopayConfig.builder()`:
 
 ```java
-import co.tz.malipopay.MaliPoPay;
-import co.tz.malipopay.MaliPoPayConfig;
+import co.tz.malipopay.Malipopay;
+import co.tz.malipopay.MalipopayConfig;
 
-MaliPoPayConfig config = MaliPoPayConfig.builder()
+MalipopayConfig config = MalipopayConfig.builder()
         .apiKey("your-api-key")
         .environment("uat")       // Use UAT for testing
         .timeout(30)              // 30-second timeout
         .retries(2)               // Retry transient failures twice
         .build();
 
-MaliPoPay malipopay = new MaliPoPay(config);
+Malipopay malipopay = new Malipopay(config);
 ```
 
 ## Choosing an Environment
@@ -95,13 +95,13 @@ By default the SDK connects to **production**. During development, use the **UAT
 
 ```java
 // UAT / testing
-MaliPoPayConfig config = MaliPoPayConfig.builder()
+MalipopayConfig config = MalipopayConfig.builder()
         .apiKey("your-uat-api-key")
         .environment("uat")
         .build();
 
 // Production (default)
-MaliPoPayConfig config = MaliPoPayConfig.builder()
+MalipopayConfig config = MalipopayConfig.builder()
         .apiKey("your-production-api-key")
         .environment("production")
         .build();
@@ -117,7 +117,7 @@ The two environments are completely separate:
 If you need a custom URL (for example, a local proxy), use the `baseUrl` option:
 
 ```java
-MaliPoPayConfig config = MaliPoPayConfig.builder()
+MalipopayConfig config = MalipopayConfig.builder()
         .apiKey("your-api-key")
         .baseUrl("http://localhost:8080")
         .build();
@@ -128,14 +128,14 @@ MaliPoPayConfig config = MaliPoPayConfig.builder()
 If you're using Spring Boot, create a configuration bean:
 
 ```java
-import co.tz.malipopay.MaliPoPay;
-import co.tz.malipopay.MaliPoPayConfig;
+import co.tz.malipopay.Malipopay;
+import co.tz.malipopay.MalipopayConfig;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class MaliPoPayConfiguration {
+public class MalipopayConfiguration {
 
     @Value("${malipopay.api-key}")
     private String apiKey;
@@ -144,13 +144,13 @@ public class MaliPoPayConfiguration {
     private String environment;
 
     @Bean
-    public MaliPoPay malipopay() {
-        MaliPoPayConfig config = MaliPoPayConfig.builder()
+    public Malipopay malipopay() {
+        MalipopayConfig config = MalipopayConfig.builder()
                 .apiKey(apiKey)
                 .environment(environment)
                 .build();
 
-        return new MaliPoPay(config);
+        return new Malipopay(config);
     }
 }
 ```
@@ -163,14 +163,14 @@ malipopay:
   environment: uat
 ```
 
-Now inject `MaliPoPay` anywhere in your application:
+Now inject `Malipopay` anywhere in your application:
 
 ```java
 @Service
 public class PaymentService {
-    private final MaliPoPay malipopay;
+    private final Malipopay malipopay;
 
-    public PaymentService(MaliPoPay malipopay) {
+    public PaymentService(Malipopay malipopay) {
         this.malipopay = malipopay;
     }
 

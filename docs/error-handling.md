@@ -1,11 +1,11 @@
 # Error Handling
 
-The MaliPoPay Java SDK uses exceptions to signal errors. Every exception extends the base `MaliPoPayException` class, so you can catch all SDK errors in one place or handle specific types individually.
+The Malipopay Java SDK uses exceptions to signal errors. Every exception extends the base `MalipopayException` class, so you can catch all SDK errors in one place or handle specific types individually.
 
 ## Exception Hierarchy
 
 ```
-MaliPoPayException (extends RuntimeException)
+MalipopayException (extends RuntimeException)
   |-- AuthenticationException    (HTTP 401)
   |-- PermissionException        (HTTP 403)
   |-- NotFoundException          (HTTP 404)
@@ -19,13 +19,13 @@ All exception classes live under `co.tz.malipopay.exceptions`.
 
 ## Catching All Errors
 
-The simplest approach -- catch `MaliPoPayException` to handle any SDK error:
+The simplest approach -- catch `MalipopayException` to handle any SDK error:
 
 ```java
-import co.tz.malipopay.MaliPoPay;
-import co.tz.malipopay.exceptions.MaliPoPayException;
+import co.tz.malipopay.Malipopay;
+import co.tz.malipopay.exceptions.MalipopayException;
 
-MaliPoPay malipopay = new MaliPoPay("your-api-key");
+Malipopay malipopay = new Malipopay("your-api-key");
 
 try {
     Map<String, Object> params = new HashMap<>();
@@ -34,7 +34,7 @@ try {
     params.put("provider", "Vodacom");
 
     Map<String, Object> result = malipopay.payments().collect(params);
-} catch (MaliPoPayException e) {
+} catch (MalipopayException e) {
     System.err.println("Error: " + e.getMessage());
     System.err.println("HTTP status: " + e.getStatusCode());
 }
@@ -74,7 +74,7 @@ try {
     malipopay.payments().disburse(params);
 } catch (PermissionException e) {
     System.err.println("Permission denied: " + e.getMessage());
-    // Contact MaliPoPay to enable disbursement
+    // Contact Malipopay to enable disbursement
 }
 ```
 
@@ -138,7 +138,7 @@ try {
 
 ### ApiException (5xx)
 
-Thrown when the MaliPoPay server encounters an internal error. These are transient -- retrying usually works.
+Thrown when the Malipopay server encounters an internal error. These are transient -- retrying usually works.
 
 ```java
 import co.tz.malipopay.exceptions.ApiException;
@@ -206,7 +206,7 @@ try {
 } catch (ConnectionException e) {
     System.err.println("Network error: " + e.getMessage());
 
-} catch (MaliPoPayException e) {
+} catch (MalipopayException e) {
     System.err.println("Unexpected error: " + e.getMessage());
 }
 ```
@@ -216,7 +216,7 @@ try {
 | Exception | Retry? | Strategy |
 |-----------|--------|----------|
 | `AuthenticationException` | No | Fix your API key. |
-| `PermissionException` | No | Contact MaliPoPay support. |
+| `PermissionException` | No | Contact Malipopay support. |
 | `NotFoundException` | No | Check the ID/reference. |
 | `ValidationException` | No | Fix the request parameters. |
 | `RateLimitException` | Yes | Wait `getRetryAfter()` seconds. |
@@ -226,7 +226,7 @@ try {
 ### Exponential Backoff Example
 
 ```java
-import co.tz.malipopay.MaliPoPay;
+import co.tz.malipopay.Malipopay;
 import co.tz.malipopay.exceptions.*;
 
 import java.util.Map;
@@ -234,9 +234,9 @@ import java.util.Map;
 public class RetryHelper {
 
     public static Map<String, Object> collectWithRetry(
-            MaliPoPay malipopay,
+            Malipopay malipopay,
             Map<String, Object> params,
-            int maxRetries) throws MaliPoPayException {
+            int maxRetries) throws MalipopayException {
 
         int attempt = 0;
 
@@ -264,7 +264,7 @@ public class RetryHelper {
                     Thread.sleep(delay);
                 } catch (InterruptedException ie) {
                     Thread.currentThread().interrupt();
-                    throw (MaliPoPayException) e;
+                    throw (MalipopayException) e;
                 }
             }
             // Validation, Auth, Permission, NotFound -- propagate immediately

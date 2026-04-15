@@ -3,7 +3,7 @@ package co.tz.malipopay.exceptions;
 /**
  * Thrown when a network or connection error occurs.
  */
-public class ConnectionException extends MaliPoPayException {
+public class ConnectionException extends MalipopayException {
 
     public ConnectionException(String message) {
         super(message);

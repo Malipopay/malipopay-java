@@ -3,7 +3,7 @@ package co.tz.malipopay.exceptions;
 /**
  * Thrown when the API returns a 401 Unauthorized response.
  */
-public class AuthenticationException extends MaliPoPayException {
+public class AuthenticationException extends MalipopayException {
 
     public AuthenticationException(String message) {
         super(message, 401, "AUTHENTICATION_ERROR", null);

@@ -7,13 +7,13 @@ All SMS methods are accessed via `malipopay.sms()`.
 ## Sending a Single SMS
 
 ```java
-import co.tz.malipopay.MaliPoPay;
-import co.tz.malipopay.exceptions.MaliPoPayException;
+import co.tz.malipopay.Malipopay;
+import co.tz.malipopay.exceptions.MalipopayException;
 
 import java.util.HashMap;
 import java.util.Map;
 
-MaliPoPay malipopay = new MaliPoPay("your-api-key");
+Malipopay malipopay = new Malipopay("your-api-key");
 
 try {
     Map<String, Object> params = new HashMap<>();
@@ -24,7 +24,7 @@ try {
 
     System.out.println("Message ID: " + result.get("messageId"));
     System.out.println("Status: " + result.get("status"));
-} catch (MaliPoPayException e) {
+} catch (MalipopayException e) {
     System.err.println("SMS failed: " + e.getMessage());
 }
 ```
@@ -64,7 +64,7 @@ try {
     System.out.println("Total recipients: " + result.get("totalRecipients"));
     System.out.println("Accepted: " + result.get("accepted"));
     System.out.println("Rejected: " + result.get("rejected"));
-} catch (MaliPoPayException e) {
+} catch (MalipopayException e) {
     System.err.println("Bulk SMS failed: " + e.getMessage());
 }
 ```
@@ -142,9 +142,9 @@ System.out.println("Delivered at: " + status.getOrDefault("deliveredAt", "N/A"))
 A sender ID is the name that appears as the "from" field on the recipient's phone. In Tanzania, sender IDs must follow TCRA rules:
 
 - **Maximum 11 characters** -- alphanumeric, no spaces or special characters.
-- **Must be registered** -- contact MaliPoPay support to register your sender ID.
+- **Must be registered** -- contact Malipopay support to register your sender ID.
 - **Approval takes 1-3 business days** -- plan ahead.
-- **Default sender ID** -- if you don't specify one, MaliPoPay uses a shared default.
+- **Default sender ID** -- if you don't specify one, Malipopay uses a shared default.
 
 Good sender IDs: `MYSHOP`, `CLINICTZ`, `BARAKA`, `PAYALERT`
 
@@ -153,13 +153,13 @@ Bad sender IDs: `My Shop` (spaces), `A_VERY_LONG_NAME` (too long), `$CASH$` (spe
 ## Complete Example: Payment Receipt via SMS
 
 ```java
-import co.tz.malipopay.MaliPoPay;
-import co.tz.malipopay.exceptions.MaliPoPayException;
+import co.tz.malipopay.Malipopay;
+import co.tz.malipopay.exceptions.MalipopayException;
 
 import java.util.HashMap;
 import java.util.Map;
 
-MaliPoPay malipopay = new MaliPoPay("your-api-key");
+Malipopay malipopay = new Malipopay("your-api-key");
 
 // 1. Collect payment
 try {
@@ -179,13 +179,13 @@ try {
 
     malipopay.sms().send(smsParams);
 
-} catch (MaliPoPayException e) {
+} catch (MalipopayException e) {
     System.err.println("Error: " + e.getMessage());
 }
 ```
 
 ## SMS Pricing
 
-SMS pricing depends on your MaliPoPay plan and volume. Messages to all Tanzanian networks are supported. Check your dashboard under **Settings > SMS** for current rates and balance.
+SMS pricing depends on your Malipopay plan and volume. Messages to all Tanzanian networks are supported. Check your dashboard under **Settings > SMS** for current rates and balance.
 
 > **Tip:** Use the UAT environment to test SMS integration without incurring charges. UAT messages are simulated and won't be delivered to the phone.

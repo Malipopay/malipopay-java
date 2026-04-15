@@ -16,7 +16,7 @@ import java.time.Duration;
 import java.util.Map;
 
 /**
- * Internal HTTP client that handles all communication with the MaliPoPay API.
+ * Internal HTTP client that handles all communication with the Malipopay API.
  * Uses Java 11+ {@link java.net.http.HttpClient}. Not intended for public use.
  */
 public class HttpClient {
@@ -28,7 +28,7 @@ public class HttpClient {
     private final java.net.http.HttpClient client;
     private final Gson gson;
 
-    public HttpClient(String apiKey, MaliPoPayConfig config) {
+    public HttpClient(String apiKey, MalipopayConfig config) {
         this.apiKey = apiKey;
         this.baseUrl = config.getBaseUrl();
         this.timeout = config.getTimeout();
@@ -95,13 +95,13 @@ public class HttpClient {
     }
 
     private ApiResponse<Object> executeWithRetry(HttpRequest request) {
-        MaliPoPayException lastException = null;
+        MalipopayException lastException = null;
 
         for (int attempt = 0; attempt <= retries; attempt++) {
             try {
                 HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
                 return handleResponse(response);
-            } catch (MaliPoPayException e) {
+            } catch (MalipopayException e) {
                 // Do not retry client errors (4xx)
                 if (e.getStatusCode() >= 400 && e.getStatusCode() < 500) {
                     throw e;
@@ -161,7 +161,7 @@ public class HttpClient {
                 if (status >= 500) {
                     throw new ApiException(errorMessage, status, errorDetails);
                 }
-                throw new MaliPoPayException(errorMessage, status, "UNKNOWN_ERROR", errorDetails);
+                throw new MalipopayException(errorMessage, status, "UNKNOWN_ERROR", errorDetails);
         }
     }
 

@@ -97,6 +97,6 @@ public class Payments {
      * Create a payment link.
      */
     public ApiResponse<Object> createLink(Map<String, Object> params) {
-        return client.post("/api/v1/pay", params);
+        return client.post("/api/v1/payment/link", params);
     }
 }

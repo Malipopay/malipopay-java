@@ -1,6 +1,6 @@
 package co.tz.malipopay.webhooks;
 
-import co.tz.malipopay.exceptions.MaliPoPayException;
+import co.tz.malipopay.exceptions.MalipopayException;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -35,7 +35,7 @@ public class Webhooks {
      */
     public boolean verify(String payload, String signature) {
         if (secret == null || secret.isEmpty()) {
-            throw new MaliPoPayException("Webhook secret is not configured");
+            throw new MalipopayException("Webhook secret is not configured");
         }
         if (payload == null || signature == null) {
             return false;
@@ -54,12 +54,12 @@ public class Webhooks {
      * @param payload   the raw request body string
      * @param signature the signature from the webhook header
      * @return parsed event data as a Map
-     * @throws MaliPoPayException if verification fails
+     * @throws MalipopayException if verification fails
      */
     @SuppressWarnings("unchecked")
     public Map<String, Object> constructEvent(String payload, String signature) {
         if (!verify(payload, signature)) {
-            throw new MaliPoPayException("Webhook signature verification failed");
+            throw new MalipopayException("Webhook signature verification failed");
         }
         return gson.fromJson(payload, Map.class);
     }
@@ -76,7 +76,7 @@ public class Webhooks {
             byte[] hash = mac.doFinal(payload.getBytes(StandardCharsets.UTF_8));
             return bytesToHex(hash);
         } catch (NoSuchAlgorithmException | InvalidKeyException e) {
-            throw new MaliPoPayException("Failed to compute HMAC: " + e.getMessage(), e);
+            throw new MalipopayException("Failed to compute HMAC: " + e.getMessage(), e);
         }
     }
 

@@ -1,10 +1,10 @@
 package co.tz.malipopay;
 
 /**
- * Configuration for the MaliPoPay SDK client.
+ * Configuration for the Malipopay SDK client.
  * Use the {@link Builder} for a fluent construction pattern.
  */
-public class MaliPoPayConfig {
+public class MalipopayConfig {
 
     public enum Environment {
         PRODUCTION("https://core-prod.malipopay.co.tz"),
@@ -27,7 +27,7 @@ public class MaliPoPayConfig {
     private final int retries;
     private final String webhookSecret;
 
-    private MaliPoPayConfig(Builder builder) {
+    private MalipopayConfig(Builder builder) {
         this.environment = builder.environment;
         this.baseUrl = builder.baseUrl != null ? builder.baseUrl : builder.environment.getBaseUrl();
         this.timeout = builder.timeout;
@@ -58,7 +58,7 @@ public class MaliPoPayConfig {
     /**
      * Creates a default configuration pointing to production.
      */
-    public static MaliPoPayConfig defaults() {
+    public static MalipopayConfig defaults() {
         return new Builder().build();
     }
 
@@ -94,8 +94,8 @@ public class MaliPoPayConfig {
             return this;
         }
 
-        public MaliPoPayConfig build() {
-            return new MaliPoPayConfig(this);
+        public MalipopayConfig build() {
+            return new MalipopayConfig(this);
         }
     }
 }

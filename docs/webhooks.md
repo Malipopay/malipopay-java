@@ -1,16 +1,16 @@
 # Webhooks
 
-Webhooks let MaliPoPay push real-time notifications to your server when events happen -- a payment completes, a disbursement fails, an invoice is paid. Instead of polling the API, you set up an endpoint and MaliPoPay sends an HTTP POST request with the event data.
+Webhooks let Malipopay push real-time notifications to your server when events happen -- a payment completes, a disbursement fails, an invoice is paid. Instead of polling the API, you set up an endpoint and Malipopay sends an HTTP POST request with the event data.
 
 ## Setting Up a Webhook Endpoint
 
-1. Sign in to the MaliPoPay dashboard at [app.malipopay.co.tz](https://app.malipopay.co.tz).
+1. Sign in to the Malipopay dashboard at [app.malipopay.co.tz](https://app.malipopay.co.tz).
 2. Navigate to **Settings > Webhooks**.
 3. Enter your endpoint URL (e.g., `https://yourapp.co.tz/webhooks/malipopay`).
 4. Select the events you want to receive.
 5. Copy the **webhook secret** -- you'll use this to verify incoming requests.
 
-> **Important:** Your endpoint must be publicly accessible over HTTPS. MaliPoPay will not deliver webhooks to `http://` URLs in production.
+> **Important:** Your endpoint must be publicly accessible over HTTPS. Malipopay will not deliver webhooks to `http://` URLs in production.
 
 ## Spring Boot Example
 
@@ -27,7 +27,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/webhooks")
-public class MaliPoPayWebhookController {
+public class MalipopayWebhookController {
 
     @Value("${malipopay.webhook-secret}")
     private String webhookSecret;
@@ -35,7 +35,7 @@ public class MaliPoPayWebhookController {
     @PostMapping("/malipopay")
     public ResponseEntity<Map<String, Object>> handleWebhook(
             @RequestBody String payload,
-            @RequestHeader(value = "X-MaliPoPay-Signature", defaultValue = "") String signature) {
+            @RequestHeader(value = "X-Malipopay-Signature", defaultValue = "") String signature) {
 
         // 1. Verify the signature
         Webhooks webhooks = new Webhooks(webhookSecret);
@@ -115,12 +115,12 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/webhooks")
-public class MaliPoPayWebhookController {
+public class MalipopayWebhookController {
 
     private final ApplicationEventPublisher eventPublisher;
     private final Webhooks webhooks;
 
-    public MaliPoPayWebhookController(
+    public MalipopayWebhookController(
             ApplicationEventPublisher eventPublisher,
             @Value("${malipopay.webhook-secret}") String webhookSecret) {
         this.eventPublisher = eventPublisher;
@@ -130,7 +130,7 @@ public class MaliPoPayWebhookController {
     @PostMapping("/malipopay")
     public ResponseEntity<Map<String, Object>> handleWebhook(
             @RequestBody String payload,
-            @RequestHeader(value = "X-MaliPoPay-Signature", defaultValue = "") String signature) {
+            @RequestHeader(value = "X-Malipopay-Signature", defaultValue = "") String signature) {
 
         Map<String, Object> event;
         try {
@@ -140,7 +140,7 @@ public class MaliPoPayWebhookController {
         }
 
         // Publish the event -- listeners process it asynchronously
-        eventPublisher.publishEvent(new MaliPoPayWebhookEvent(event));
+        eventPublisher.publishEvent(new MalipopayWebhookEvent(event));
 
         return ResponseEntity.ok(Map.of("received", true));
     }
@@ -149,7 +149,7 @@ public class MaliPoPayWebhookController {
 
 ```java
 // Event class
-public record MaliPoPayWebhookEvent(Map<String, Object> payload) {}
+public record MalipopayWebhookEvent(Map<String, Object> payload) {}
 ```
 
 ```java
@@ -159,11 +159,11 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MaliPoPayEventListener {
+public class MalipopayEventListener {
 
     @Async
     @EventListener
-    public void onWebhookReceived(MaliPoPayWebhookEvent event) {
+    public void onWebhookReceived(MalipopayWebhookEvent event) {
         Map<String, Object> payload = event.payload();
         String eventType = (String) payload.get("event");
         Map<String, Object> data = (Map<String, Object>) payload.get("data");
@@ -199,7 +199,7 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class MaliPoPayWebhookServlet extends HttpServlet {
+public class MalipopayWebhookServlet extends HttpServlet {
 
     private static final String WEBHOOK_SECRET = System.getenv("MALIPOPAY_WEBHOOK_SECRET");
 
@@ -211,7 +211,7 @@ public class MaliPoPayWebhookServlet extends HttpServlet {
             payload = reader.lines().collect(Collectors.joining("\n"));
         }
 
-        String signature = req.getHeader("X-MaliPoPay-Signature");
+        String signature = req.getHeader("X-Malipopay-Signature");
         if (signature == null) {
             signature = "";
         }
@@ -253,7 +253,7 @@ public class MaliPoPayWebhookServlet extends HttpServlet {
 
 ## Signature Verification
 
-The `Webhooks` class verifies that webhook requests genuinely come from MaliPoPay using HMAC-SHA256:
+The `Webhooks` class verifies that webhook requests genuinely come from Malipopay using HMAC-SHA256:
 
 ```java
 Webhooks webhooks = new Webhooks("whsec_your_webhook_secret");
@@ -304,11 +304,11 @@ Never skip verification, even during development.
 
 ### Respond 200 First
 
-MaliPoPay waits up to 10 seconds for a response. Return `200` immediately, then process asynchronously. In Spring Boot, use `@Async` event listeners or submit work to a thread pool. In a servlet, respond before processing.
+Malipopay waits up to 10 seconds for a response. Return `200` immediately, then process asynchronously. In Spring Boot, use `@Async` event listeners or submit work to a thread pool. In a servlet, respond before processing.
 
 ### Implement Idempotency
 
-MaliPoPay may deliver the same event more than once. Use the payment reference as an idempotency key:
+Malipopay may deliver the same event more than once. Use the payment reference as an idempotency key:
 
 ```java
 String reference = (String) data.get("reference");

@@ -1,12 +1,12 @@
 # Payments
 
-The Payments resource is at the heart of the MaliPoPay SDK. It lets you collect mobile money from customers, disburse funds to recipients, create payment links, verify transaction status, and more.
+The Payments resource is at the heart of the Malipopay SDK. It lets you collect mobile money from customers, disburse funds to recipients, create payment links, verify transaction status, and more.
 
 All payment methods are accessed via `malipopay.payments()`.
 
 ## Mobile Money Collection
 
-Collection triggers a USSD push to the customer's phone. The customer confirms the payment on their handset, and MaliPoPay processes the transaction.
+Collection triggers a USSD push to the customer's phone. The customer confirms the payment on their handset, and Malipopay processes the transaction.
 
 ### Supported Providers
 
@@ -21,13 +21,13 @@ Collection triggers a USSD push to the customer's phone. The customer confirms t
 ### Basic Collection
 
 ```java
-import co.tz.malipopay.MaliPoPay;
-import co.tz.malipopay.exceptions.MaliPoPayException;
+import co.tz.malipopay.Malipopay;
+import co.tz.malipopay.exceptions.MalipopayException;
 
 import java.util.HashMap;
 import java.util.Map;
 
-MaliPoPay malipopay = new MaliPoPay("your-api-key");
+Malipopay malipopay = new Malipopay("your-api-key");
 
 try {
     Map<String, Object> params = new HashMap<>();
@@ -39,7 +39,7 @@ try {
 
     System.out.println("Reference: " + result.get("reference"));
     System.out.println("Status: " + result.get("status"));
-} catch (MaliPoPayException e) {
+} catch (MalipopayException e) {
     System.err.println("Payment failed: " + e.getMessage());
 }
 ```
@@ -123,7 +123,7 @@ malipopay.payments().collect(params);
 
 ## Disbursement
 
-Disbursement sends money from your MaliPoPay account to a mobile money wallet or bank account. Common use cases include salary payments, refunds, and agent commission payouts.
+Disbursement sends money from your Malipopay account to a mobile money wallet or bank account. Common use cases include salary payments, refunds, and agent commission payouts.
 
 ### Mobile Money Disbursement
 
@@ -138,7 +138,7 @@ try {
     Map<String, Object> result = malipopay.payments().disburse(params);
 
     System.out.println("Disbursement reference: " + result.get("reference"));
-} catch (MaliPoPayException e) {
+} catch (MalipopayException e) {
     System.err.println("Disbursement failed: " + e.getMessage());
 }
 ```
@@ -230,7 +230,7 @@ If a collection failed due to a transient issue, retry without creating a new pa
 try {
     Map<String, Object> result = malipopay.payments().retry("PAY-2024-00456");
     System.out.println("Retry initiated: " + result.get("status"));
-} catch (MaliPoPayException e) {
+} catch (MalipopayException e) {
     System.err.println("Retry failed: " + e.getMessage());
 }
 ```
@@ -281,15 +281,15 @@ Map<String, Object> dateResults = malipopay.payments().search(dateQuery);
 ## Typical Collection Flow
 
 ```java
-import co.tz.malipopay.MaliPoPay;
-import co.tz.malipopay.MaliPoPayConfig;
-import co.tz.malipopay.exceptions.MaliPoPayException;
+import co.tz.malipopay.Malipopay;
+import co.tz.malipopay.MalipopayConfig;
+import co.tz.malipopay.exceptions.MalipopayException;
 import co.tz.malipopay.exceptions.ValidationException;
 
 import java.util.HashMap;
 import java.util.Map;
 
-MaliPoPay malipopay = new MaliPoPay("your-api-key");
+Malipopay malipopay = new Malipopay("your-api-key");
 
 // 1. Initiate the collection
 String reference;
@@ -307,7 +307,7 @@ try {
 } catch (ValidationException e) {
     System.err.println("Validation error: " + e.getMessage());
     return;
-} catch (MaliPoPayException e) {
+} catch (MalipopayException e) {
     System.err.println("Failed to initiate: " + e.getMessage());
     return;
 }

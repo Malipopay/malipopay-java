@@ -1,28 +1,28 @@
 # Configuration
 
-The MaliPoPay Java SDK is configured through the `MaliPoPayConfig` builder. This page covers every available option and how to tune the SDK for your environment.
+The Malipopay Java SDK is configured through the `MalipopayConfig` builder. This page covers every available option and how to tune the SDK for your environment.
 
 ## Basic Setup
 
 At minimum, you need your API key:
 
 ```java
-import co.tz.malipopay.MaliPoPay;
+import co.tz.malipopay.Malipopay;
 
-MaliPoPay malipopay = new MaliPoPay("your-api-key");
+Malipopay malipopay = new Malipopay("your-api-key");
 ```
 
 This connects to the **production** environment with default settings.
 
 ## Using the Config Builder
 
-For full control, use `MaliPoPayConfig.builder()`:
+For full control, use `MalipopayConfig.builder()`:
 
 ```java
-import co.tz.malipopay.MaliPoPay;
-import co.tz.malipopay.MaliPoPayConfig;
+import co.tz.malipopay.Malipopay;
+import co.tz.malipopay.MalipopayConfig;
 
-MaliPoPayConfig config = MaliPoPayConfig.builder()
+MalipopayConfig config = MalipopayConfig.builder()
         .apiKey("your-api-key")
         .environment("uat")
         .timeout(30)
@@ -30,14 +30,14 @@ MaliPoPayConfig config = MaliPoPayConfig.builder()
         .webhookSecret("whsec_your_webhook_secret")
         .build();
 
-MaliPoPay malipopay = new MaliPoPay(config);
+Malipopay malipopay = new Malipopay(config);
 ```
 
 ## Configuration Options
 
 | Option | Type | Default | Description |
 |--------|------|---------|-------------|
-| `apiKey` | `String` | *required* | Your MaliPoPay API key. |
+| `apiKey` | `String` | *required* | Your Malipopay API key. |
 | `environment` | `String` | `"production"` | Which environment to connect to: `"production"` or `"uat"`. |
 | `baseUrl` | `String` | `null` | Override the base URL entirely. Takes precedence over `environment`. |
 | `timeout` | `int` | `30` | HTTP request timeout in seconds. |
@@ -46,7 +46,7 @@ MaliPoPay malipopay = new MaliPoPay(config);
 
 ## Environment Selection
 
-MaliPoPay provides two separate environments:
+Malipopay provides two separate environments:
 
 | Environment | Base URL | Purpose |
 |-------------|----------|---------|
@@ -59,13 +59,13 @@ Always develop and test against UAT first:
 
 ```java
 // Development / testing
-MaliPoPayConfig config = MaliPoPayConfig.builder()
+MalipopayConfig config = MalipopayConfig.builder()
         .apiKey("your-uat-api-key")
         .environment("uat")
         .build();
 
 // Production
-MaliPoPayConfig config = MaliPoPayConfig.builder()
+MalipopayConfig config = MalipopayConfig.builder()
         .apiKey("your-production-api-key")
         .environment("production")
         .build();
@@ -78,7 +78,7 @@ MaliPoPayConfig config = MaliPoPayConfig.builder()
 A common pattern is to read configuration from environment variables or system properties:
 
 ```java
-MaliPoPayConfig config = MaliPoPayConfig.builder()
+MalipopayConfig config = MalipopayConfig.builder()
         .apiKey(System.getenv("MALIPOPAY_API_KEY"))
         .environment(System.getenv().getOrDefault("MALIPOPAY_ENV", "production"))
         .timeout(Integer.parseInt(System.getenv().getOrDefault("MALIPOPAY_TIMEOUT", "30")))
@@ -102,15 +102,15 @@ malipopay:
 ### Configuration Bean
 
 ```java
-import co.tz.malipopay.MaliPoPay;
-import co.tz.malipopay.MaliPoPayConfig;
+import co.tz.malipopay.Malipopay;
+import co.tz.malipopay.MalipopayConfig;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ConfigurationProperties(prefix = "malipopay")
-public class MaliPoPayConfiguration {
+public class MalipopayConfiguration {
 
     private String apiKey;
     private String environment = "production";
@@ -119,8 +119,8 @@ public class MaliPoPayConfiguration {
     private String webhookSecret;
 
     @Bean
-    public MaliPoPay malipopay() {
-        MaliPoPayConfig config = MaliPoPayConfig.builder()
+    public Malipopay malipopay() {
+        MalipopayConfig config = MalipopayConfig.builder()
                 .apiKey(apiKey)
                 .environment(environment)
                 .timeout(timeout)
@@ -128,7 +128,7 @@ public class MaliPoPayConfiguration {
                 .webhookSecret(webhookSecret)
                 .build();
 
-        return new MaliPoPay(config);
+        return new Malipopay(config);
     }
 
     // Setters required for @ConfigurationProperties binding
@@ -140,14 +140,14 @@ public class MaliPoPayConfiguration {
 }
 ```
 
-Now inject `MaliPoPay` anywhere:
+Now inject `Malipopay` anywhere:
 
 ```java
 @Service
 public class PaymentService {
-    private final MaliPoPay malipopay;
+    private final Malipopay malipopay;
 
-    public PaymentService(MaliPoPay malipopay) {
+    public PaymentService(Malipopay malipopay) {
         this.malipopay = malipopay;
     }
 }
@@ -158,7 +158,7 @@ public class PaymentService {
 Point the SDK at a custom URL -- a mock server, a local proxy, or a staging environment:
 
 ```java
-MaliPoPayConfig config = MaliPoPayConfig.builder()
+MalipopayConfig config = MalipopayConfig.builder()
         .apiKey("your-api-key")
         .baseUrl("http://localhost:8080")
         .build();
@@ -171,7 +171,7 @@ When `baseUrl` is set, the `environment` option is ignored.
 The default timeout is 30 seconds. Mobile money transactions involve USSD prompts, so avoid setting this too low:
 
 ```java
-MaliPoPayConfig config = MaliPoPayConfig.builder()
+MalipopayConfig config = MalipopayConfig.builder()
         .apiKey("your-api-key")
         .timeout(60)  // 60 seconds
         .build();
@@ -189,7 +189,7 @@ If a request exceeds the timeout, the SDK throws a `ConnectionException`.
 The SDK can automatically retry requests that fail due to transient errors (HTTP 5xx, timeouts):
 
 ```java
-MaliPoPayConfig config = MaliPoPayConfig.builder()
+MalipopayConfig config = MalipopayConfig.builder()
         .apiKey("your-api-key")
         .retries(3)  // Initial attempt + up to 3 retries = 4 total
         .build();
@@ -202,12 +202,12 @@ Retries use exponential backoff (1s, 2s, 4s, etc.). Client errors (401, 403, 404
 ## Full Configuration Example
 
 ```java
-import co.tz.malipopay.MaliPoPay;
-import co.tz.malipopay.MaliPoPayConfig;
+import co.tz.malipopay.Malipopay;
+import co.tz.malipopay.MalipopayConfig;
 
 public class App {
     public static void main(String[] args) {
-        MaliPoPayConfig config = MaliPoPayConfig.builder()
+        MalipopayConfig config = MalipopayConfig.builder()
                 .apiKey(System.getenv("MALIPOPAY_API_KEY"))
                 .environment(System.getenv().getOrDefault("MALIPOPAY_ENV", "production"))
                 .timeout(Integer.parseInt(System.getenv().getOrDefault("MALIPOPAY_TIMEOUT", "30")))
@@ -215,10 +215,10 @@ public class App {
                 .webhookSecret(System.getenv("MALIPOPAY_WEBHOOK_SECRET"))
                 .build();
 
-        MaliPoPay malipopay = new MaliPoPay(config);
+        Malipopay malipopay = new Malipopay(config);
 
         // Ready to use
-        System.out.println("MaliPoPay SDK initialized for " + config.getEnvironment());
+        System.out.println("Malipopay SDK initialized for " + config.getEnvironment());
     }
 }
 ```

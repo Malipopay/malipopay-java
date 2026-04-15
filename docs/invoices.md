@@ -7,12 +7,12 @@ All invoice methods are accessed via `malipopay.invoices()`.
 ## Creating an Invoice
 
 ```java
-import co.tz.malipopay.MaliPoPay;
-import co.tz.malipopay.exceptions.MaliPoPayException;
+import co.tz.malipopay.Malipopay;
+import co.tz.malipopay.exceptions.MalipopayException;
 
 import java.util.*;
 
-MaliPoPay malipopay = new MaliPoPay("your-api-key");
+Malipopay malipopay = new Malipopay("your-api-key");
 
 try {
     Map<String, Object> item1 = new HashMap<>();
@@ -38,7 +38,7 @@ try {
 
     System.out.println("Invoice created: " + invoice.get("invoiceNo"));
     System.out.println("Total: TZS " + invoice.get("total"));
-} catch (MaliPoPayException e) {
+} catch (MalipopayException e) {
     System.err.println("Error: " + e.getMessage());
 }
 ```
@@ -138,7 +138,7 @@ malipopay.invoices().recordPayment(params);
 This is useful when:
 
 - A customer pays in installments.
-- You receive payment through a channel outside MaliPoPay.
+- You receive payment through a channel outside Malipopay.
 - You want to track cash or bank transfer payments against the same invoice.
 
 ## Approving a Draft Invoice
@@ -172,12 +172,12 @@ System.out.println("Next invoice will be: " + next.get("invoiceNo"));
 ## Complete Example: Invoice-to-Payment Flow
 
 ```java
-import co.tz.malipopay.MaliPoPay;
-import co.tz.malipopay.exceptions.MaliPoPayException;
+import co.tz.malipopay.Malipopay;
+import co.tz.malipopay.exceptions.MalipopayException;
 
 import java.util.*;
 
-MaliPoPay malipopay = new MaliPoPay("your-api-key");
+Malipopay malipopay = new Malipopay("your-api-key");
 
 // 1. Create the invoice
 Map<String, Object> consultingItem = new HashMap<>();
@@ -226,7 +226,7 @@ try {
     malipopay.invoices().recordPayment(recordParams);
 
     System.out.println("Invoice paid in full!");
-} catch (MaliPoPayException e) {
+} catch (MalipopayException e) {
     System.err.println("Payment collection failed: " + e.getMessage());
 }
 ```

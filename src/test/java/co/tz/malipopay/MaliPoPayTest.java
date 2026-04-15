@@ -6,37 +6,37 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MaliPoPayTest {
+class MalipopayTest {
 
     @Test
     void shouldCreateClientWithApiKey() {
-        MaliPoPay client = new MaliPoPay("test-api-key");
+        Malipopay client = new Malipopay("test-api-key");
         assertEquals("test-api-key", client.getApiKey());
         assertNotNull(client.getConfig());
     }
 
     @Test
     void shouldThrowOnNullApiKey() {
-        assertThrows(IllegalArgumentException.class, () -> new MaliPoPay(null));
+        assertThrows(IllegalArgumentException.class, () -> new Malipopay(null));
     }
 
     @Test
     void shouldThrowOnEmptyApiKey() {
-        assertThrows(IllegalArgumentException.class, () -> new MaliPoPay(""));
-        assertThrows(IllegalArgumentException.class, () -> new MaliPoPay("   "));
+        assertThrows(IllegalArgumentException.class, () -> new Malipopay(""));
+        assertThrows(IllegalArgumentException.class, () -> new Malipopay("   "));
     }
 
     @Test
     void shouldCreateClientWithCustomConfig() {
-        MaliPoPayConfig config = new MaliPoPayConfig.Builder()
-                .environment(MaliPoPayConfig.Environment.UAT)
+        MalipopayConfig config = new MalipopayConfig.Builder()
+                .environment(MalipopayConfig.Environment.UAT)
                 .timeout(60000)
                 .retries(5)
                 .webhookSecret("whsec_test")
                 .build();
 
-        MaliPoPay client = new MaliPoPay("test-api-key", config);
-        assertEquals(MaliPoPayConfig.Environment.UAT, client.getConfig().getEnvironment());
+        Malipopay client = new Malipopay("test-api-key", config);
+        assertEquals(MalipopayConfig.Environment.UAT, client.getConfig().getEnvironment());
         assertEquals("https://core-uat.malipopay.co.tz", client.getConfig().getBaseUrl());
         assertEquals(60000, client.getConfig().getTimeout());
         assertEquals(5, client.getConfig().getRetries());
@@ -44,17 +44,17 @@ class MaliPoPayTest {
 
     @Test
     void shouldCreateClientWithCustomBaseUrl() {
-        MaliPoPayConfig config = new MaliPoPayConfig.Builder()
+        MalipopayConfig config = new MalipopayConfig.Builder()
                 .baseUrl("https://custom.example.com")
                 .build();
 
-        MaliPoPay client = new MaliPoPay("test-api-key", config);
+        Malipopay client = new Malipopay("test-api-key", config);
         assertEquals("https://custom.example.com", client.getConfig().getBaseUrl());
     }
 
     @Test
     void shouldLazyInitResources() {
-        MaliPoPay client = new MaliPoPay("test-api-key");
+        Malipopay client = new Malipopay("test-api-key");
 
         // Each accessor should return a non-null instance
         assertNotNull(client.payments());
@@ -69,7 +69,7 @@ class MaliPoPayTest {
 
     @Test
     void shouldReturnSameResourceInstance() {
-        MaliPoPay client = new MaliPoPay("test-api-key");
+        Malipopay client = new Malipopay("test-api-key");
 
         Payments p1 = client.payments();
         Payments p2 = client.payments();
@@ -78,10 +78,10 @@ class MaliPoPayTest {
 
     @Test
     void shouldInitWebhooksWithSecret() {
-        MaliPoPayConfig config = new MaliPoPayConfig.Builder()
+        MalipopayConfig config = new MalipopayConfig.Builder()
                 .webhookSecret("whsec_test_secret")
                 .build();
-        MaliPoPay client = new MaliPoPay("test-api-key", config);
+        Malipopay client = new Malipopay("test-api-key", config);
 
         Webhooks wh = client.webhooks();
         assertNotNull(wh);
@@ -89,8 +89,8 @@ class MaliPoPayTest {
 
     @Test
     void shouldDefaultToProductionEnvironment() {
-        MaliPoPayConfig config = MaliPoPayConfig.defaults();
-        assertEquals(MaliPoPayConfig.Environment.PRODUCTION, config.getEnvironment());
+        MalipopayConfig config = MalipopayConfig.defaults();
+        assertEquals(MalipopayConfig.Environment.PRODUCTION, config.getEnvironment());
         assertEquals("https://core-prod.malipopay.co.tz", config.getBaseUrl());
     }
 }

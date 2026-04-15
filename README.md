@@ -1,6 +1,6 @@
-# MaliPoPay Java SDK
+# Malipopay Java SDK
 
-Official Java SDK for the [MaliPoPay](https://malipopay.co.tz) payment platform (Tanzania).
+Official Java SDK for the [Malipopay](https://malipopay.co.tz) payment platform (Tanzania).
 
 Requires **Java 11+**.
 
@@ -12,25 +12,25 @@ Requires **Java 11+**.
 <dependency>
     <groupId>co.tz.malipopay</groupId>
     <artifactId>malipopay-java</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
 </dependency>
 ```
 
 ### Gradle
 
 ```groovy
-implementation 'co.tz.malipopay:malipopay-java:1.0.0'
+implementation 'co.tz.malipopay:malipopay-java:1.1.0'
 ```
 
 ## Quick Start
 
 ```java
-import co.tz.malipopay.MaliPoPay;
+import co.tz.malipopay.Malipopay;
 import co.tz.malipopay.ApiResponse;
 
 import java.util.Map;
 
-MaliPoPay client = new MaliPoPay("your-api-key");
+Malipopay client = new Malipopay("your-api-key");
 
 // Collect mobile money
 ApiResponse<Object> response = client.payments().collect(Map.of(
@@ -46,22 +46,22 @@ System.out.println(response.getData());
 ## Configuration
 
 ```java
-import co.tz.malipopay.MaliPoPayConfig;
+import co.tz.malipopay.MalipopayConfig;
 
-MaliPoPayConfig config = new MaliPoPayConfig.Builder()
-    .environment(MaliPoPayConfig.Environment.UAT)  // or PRODUCTION (default)
+MalipopayConfig config = new MalipopayConfig.Builder()
+    .environment(MalipopayConfig.Environment.UAT)  // or PRODUCTION (default)
     .timeout(60000)          // request timeout in ms (default: 30000)
     .retries(5)              // retry count for 5xx/network errors (default: 3)
     .webhookSecret("whsec_xxx")
     .build();
 
-MaliPoPay client = new MaliPoPay("your-api-key", config);
+Malipopay client = new Malipopay("your-api-key", config);
 ```
 
 You can also override the base URL directly:
 
 ```java
-MaliPoPayConfig config = new MaliPoPayConfig.Builder()
+MalipopayConfig config = new MalipopayConfig.Builder()
     .baseUrl("https://custom-api.example.com")
     .build();
 ```
@@ -203,8 +203,8 @@ try {
     // 5xx - Server error
 } catch (ConnectionException e) {
     // Network error
-} catch (MaliPoPayException e) {
-    // Any other MaliPoPay error
+} catch (MalipopayException e) {
+    // Any other Malipopay error
     System.err.println("Status: " + e.getStatusCode());
     System.err.println("Code: " + e.getCode());
     System.err.println("Details: " + e.getDetails());
@@ -233,7 +233,7 @@ MIT - Lockwood Technology Ltd
 | [Python](https://github.com/Malipopay/malipopay-python) | `pip install malipopay` |
 | [PHP](https://github.com/Malipopay/malipopay-php) | `composer require malipopay/malipopay-php` |
 | [Java](https://github.com/Malipopay/malipopay-java) | Maven / Gradle |
-| [.NET](https://github.com/Malipopay/malipopay-dotnet) | `dotnet add package MaliPoPay` |
+| [.NET](https://github.com/Malipopay/malipopay-dotnet) | `dotnet add package Malipopay` |
 | [Ruby](https://github.com/Malipopay/malipopay-ruby) | `gem install malipopay` |
 
 [API Reference](https://developers.malipopay.co.tz) | [OpenAPI Spec](https://github.com/Malipopay/malipopay-openapi) | [Test Scenarios](https://github.com/Malipopay/malipopay-sdk-tests)

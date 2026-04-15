@@ -1,5 +1,5 @@
 import co.tz.malipopay.ApiResponse;
-import co.tz.malipopay.MaliPoPay;
+import co.tz.malipopay.Malipopay;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,12 +7,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Example: Create and manage invoices via MaliPoPay.
+ * Example: Create and manage invoices via Malipopay.
  */
 public class CreateInvoice {
 
     public static void main(String[] args) {
-        MaliPoPay client = new MaliPoPay("your-api-key");
+        Malipopay client = new Malipopay("your-api-key");
 
         try {
             // Create a customer first

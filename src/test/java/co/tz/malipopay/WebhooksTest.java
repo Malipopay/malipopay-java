@@ -1,6 +1,6 @@
 package co.tz.malipopay;
 
-import co.tz.malipopay.exceptions.MaliPoPayException;
+import co.tz.malipopay.exceptions.MalipopayException;
 import co.tz.malipopay.webhooks.Webhooks;
 import org.junit.jupiter.api.Test;
 
@@ -58,14 +58,14 @@ class WebhooksTest {
         Webhooks webhooks = new Webhooks(SECRET);
         String payload = "{\"event\":\"payment.completed\"}";
 
-        assertThrows(MaliPoPayException.class, () ->
+        assertThrows(MalipopayException.class, () ->
                 webhooks.constructEvent(payload, "bad_sig"));
     }
 
     @Test
     void shouldThrowWhenSecretNotConfigured() {
         Webhooks webhooks = new Webhooks(null);
-        assertThrows(MaliPoPayException.class, () ->
+        assertThrows(MalipopayException.class, () ->
                 webhooks.verify("{}", "sig"));
     }
 

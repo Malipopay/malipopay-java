@@ -4,10 +4,10 @@ import co.tz.malipopay.resources.*;
 import co.tz.malipopay.webhooks.Webhooks;
 
 /**
- * Main entry point for the MaliPoPay Java SDK.
+ * Main entry point for the Malipopay Java SDK.
  *
  * <pre>{@code
- * MaliPoPay client = new MaliPoPay("your-api-key");
+ * Malipopay client = new Malipopay("your-api-key");
  * ApiResponse<Object> response = client.payments().collect(Map.of(
  *     "amount", 5000,
  *     "phone", "255712345678",
@@ -15,10 +15,10 @@ import co.tz.malipopay.webhooks.Webhooks;
  * ));
  * }</pre>
  */
-public class MaliPoPay {
+public class Malipopay {
 
     private final String apiKey;
-    private final MaliPoPayConfig config;
+    private final MalipopayConfig config;
     private final HttpClient httpClient;
 
     // Lazy-initialized resource instances
@@ -35,19 +35,19 @@ public class MaliPoPay {
     /**
      * Create a client with the given API key and default production configuration.
      *
-     * @param apiKey your MaliPoPay API token
+     * @param apiKey your Malipopay API token
      */
-    public MaliPoPay(String apiKey) {
-        this(apiKey, MaliPoPayConfig.defaults());
+    public Malipopay(String apiKey) {
+        this(apiKey, MalipopayConfig.defaults());
     }
 
     /**
      * Create a client with the given API key and custom configuration.
      *
-     * @param apiKey your MaliPoPay API token
+     * @param apiKey your Malipopay API token
      * @param config custom configuration
      */
-    public MaliPoPay(String apiKey, MaliPoPayConfig config) {
+    public Malipopay(String apiKey, MalipopayConfig config) {
         if (apiKey == null || apiKey.trim().isEmpty()) {
             throw new IllegalArgumentException("API key is required");
         }
@@ -167,7 +167,7 @@ public class MaliPoPay {
     /**
      * Returns the configuration this client is using.
      */
-    public MaliPoPayConfig getConfig() {
+    public MalipopayConfig getConfig() {
         return config;
     }
 }

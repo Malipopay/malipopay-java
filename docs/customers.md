@@ -1,20 +1,20 @@
 # Customers
 
-The Customers resource lets you create, retrieve, search, and verify customer records in MaliPoPay. Storing customers centrally means you can associate payments and invoices with known identities, avoid asking for phone numbers repeatedly, and build a clearer picture of your transaction history.
+The Customers resource lets you create, retrieve, search, and verify customer records in Malipopay. Storing customers centrally means you can associate payments and invoices with known identities, avoid asking for phone numbers repeatedly, and build a clearer picture of your transaction history.
 
 All customer methods are accessed via `malipopay.customers()`.
 
 ## Creating a Customer
 
 ```java
-import co.tz.malipopay.MaliPoPay;
+import co.tz.malipopay.Malipopay;
 import co.tz.malipopay.exceptions.ValidationException;
-import co.tz.malipopay.exceptions.MaliPoPayException;
+import co.tz.malipopay.exceptions.MalipopayException;
 
 import java.util.HashMap;
 import java.util.Map;
 
-MaliPoPay malipopay = new MaliPoPay("your-api-key");
+Malipopay malipopay = new Malipopay("your-api-key");
 
 try {
     Map<String, Object> params = new HashMap<>();
@@ -33,7 +33,7 @@ try {
             System.err.println("  " + field + ": " + msg)
         );
     }
-} catch (MaliPoPayException e) {
+} catch (MalipopayException e) {
     System.err.println("Error: " + e.getMessage());
 }
 ```
@@ -45,7 +45,7 @@ You can collect payments without creating a customer record first -- just pass t
 - You need to track payment history per person.
 - You send recurring invoices and want to pre-fill recipient details.
 - You want to verify a customer's mobile money identity before charging them.
-- Your business has a CRM and you want a single customer ID that ties your system to MaliPoPay.
+- Your business has a CRM and you want a single customer ID that ties your system to Malipopay.
 
 ## Retrieving a Customer
 
@@ -112,7 +112,7 @@ try {
 
     System.out.println("Registered name: " + verification.get("name"));
     System.out.println("Network: " + verification.get("provider"));
-} catch (MaliPoPayException e) {
+} catch (MalipopayException e) {
     System.err.println("Verification failed: " + e.getMessage());
 }
 ```
@@ -126,14 +126,14 @@ try {
 ## Complete Example: Onboarding Flow
 
 ```java
-import co.tz.malipopay.MaliPoPay;
-import co.tz.malipopay.exceptions.MaliPoPayException;
+import co.tz.malipopay.Malipopay;
+import co.tz.malipopay.exceptions.MalipopayException;
 import co.tz.malipopay.exceptions.NotFoundException;
 
 import java.util.HashMap;
 import java.util.Map;
 
-MaliPoPay malipopay = new MaliPoPay("your-api-key");
+Malipopay malipopay = new Malipopay("your-api-key");
 String phone = "255712345678";
 
 String customerId;
@@ -149,7 +149,7 @@ try {
     try {
         Map<String, Object> verification = malipopay.customers().verify(phone);
         System.out.println("We found you as: " + verification.get("name"));
-    } catch (MaliPoPayException ex) {
+    } catch (MalipopayException ex) {
         System.out.println("Could not verify phone number.");
     }
 
