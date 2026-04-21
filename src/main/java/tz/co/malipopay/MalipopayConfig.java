@@ -1,4 +1,4 @@
-package co.tz.malipopay;
+package tz.co.malipopay;
 
 /**
  * Configuration for the Malipopay SDK client.

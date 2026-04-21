@@ -7,7 +7,7 @@ The Malipopay Java SDK is configured through the `MalipopayConfig` builder. This
 At minimum, you need your API key:
 
 ```java
-import co.tz.malipopay.Malipopay;
+import tz.co.malipopay.Malipopay;
 
 Malipopay malipopay = new Malipopay("your-api-key");
 ```
@@ -19,8 +19,8 @@ This connects to the **production** environment with default settings.
 For full control, use `MalipopayConfig.builder()`:
 
 ```java
-import co.tz.malipopay.Malipopay;
-import co.tz.malipopay.MalipopayConfig;
+import tz.co.malipopay.Malipopay;
+import tz.co.malipopay.MalipopayConfig;
 
 MalipopayConfig config = MalipopayConfig.builder()
         .apiKey("your-api-key")
@@ -102,8 +102,8 @@ malipopay:
 ### Configuration Bean
 
 ```java
-import co.tz.malipopay.Malipopay;
-import co.tz.malipopay.MalipopayConfig;
+import tz.co.malipopay.Malipopay;
+import tz.co.malipopay.MalipopayConfig;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -202,8 +202,8 @@ Retries use exponential backoff (1s, 2s, 4s, etc.). Client errors (401, 403, 404
 ## Full Configuration Example
 
 ```java
-import co.tz.malipopay.Malipopay;
-import co.tz.malipopay.MalipopayConfig;
+import tz.co.malipopay.Malipopay;
+import tz.co.malipopay.MalipopayConfig;
 
 public class App {
     public static void main(String[] args) {

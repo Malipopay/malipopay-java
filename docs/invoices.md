@@ -7,8 +7,8 @@ All invoice methods are accessed via `malipopay.invoices()`.
 ## Creating an Invoice
 
 ```java
-import co.tz.malipopay.Malipopay;
-import co.tz.malipopay.exceptions.MalipopayException;
+import tz.co.malipopay.Malipopay;
+import tz.co.malipopay.exceptions.MalipopayException;
 
 import java.util.*;
 
@@ -172,8 +172,8 @@ System.out.println("Next invoice will be: " + next.get("invoiceNo"));
 ## Complete Example: Invoice-to-Payment Flow
 
 ```java
-import co.tz.malipopay.Malipopay;
-import co.tz.malipopay.exceptions.MalipopayException;
+import tz.co.malipopay.Malipopay;
+import tz.co.malipopay.exceptions.MalipopayException;
 
 import java.util.*;
 

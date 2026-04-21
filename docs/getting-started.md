@@ -14,7 +14,7 @@ Add the dependency to your `pom.xml`:
 
 ```xml
 <dependency>
-    <groupId>co.tz.malipopay</groupId>
+    <groupId>tz.co.malipopay</groupId>
     <artifactId>malipopay-java</artifactId>
     <version>1.1.0</version>
 </dependency>
@@ -25,13 +25,13 @@ Add the dependency to your `pom.xml`:
 Add the dependency to your `build.gradle`:
 
 ```groovy
-implementation 'co.tz.malipopay:malipopay-java:1.1.0'
+implementation 'tz.co.malipopay:malipopay-java:1.1.0'
 ```
 
 Or with Kotlin DSL (`build.gradle.kts`):
 
 ```kotlin
-implementation("co.tz.malipopay:malipopay-java:1.1.0")
+implementation("tz.co.malipopay:malipopay-java:1.1.0")
 ```
 
 ## Getting Your API Key
@@ -47,8 +47,8 @@ implementation("co.tz.malipopay:malipopay-java:1.1.0")
 Here is the fastest way to collect a mobile money payment:
 
 ```java
-import co.tz.malipopay.Malipopay;
-import co.tz.malipopay.MalipopayConfig;
+import tz.co.malipopay.Malipopay;
+import tz.co.malipopay.MalipopayConfig;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -76,8 +76,8 @@ When this runs, the customer at `255712345678` receives a USSD push prompt on th
 For more control, use `MalipopayConfig.builder()`:
 
 ```java
-import co.tz.malipopay.Malipopay;
-import co.tz.malipopay.MalipopayConfig;
+import tz.co.malipopay.Malipopay;
+import tz.co.malipopay.MalipopayConfig;
 
 MalipopayConfig config = MalipopayConfig.builder()
         .apiKey("your-api-key")
@@ -128,8 +128,8 @@ MalipopayConfig config = MalipopayConfig.builder()
 If you're using Spring Boot, create a configuration bean:
 
 ```java
-import co.tz.malipopay.Malipopay;
-import co.tz.malipopay.MalipopayConfig;
+import tz.co.malipopay.Malipopay;
+import tz.co.malipopay.MalipopayConfig;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

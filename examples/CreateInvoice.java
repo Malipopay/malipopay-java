@@ -1,5 +1,5 @@
-import co.tz.malipopay.ApiResponse;
-import co.tz.malipopay.Malipopay;
+import tz.co.malipopay.ApiResponse;
+import tz.co.malipopay.Malipopay;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -17,8 +17,8 @@ Webhooks let Malipopay push real-time notifications to your server when events h
 ### Controller
 
 ```java
-import co.tz.malipopay.Webhooks;
-import co.tz.malipopay.exceptions.WebhookVerificationException;
+import tz.co.malipopay.Webhooks;
+import tz.co.malipopay.exceptions.WebhookVerificationException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -190,8 +190,8 @@ public class MalipopayEventListener {
 If you're not using Spring Boot:
 
 ```java
-import co.tz.malipopay.Webhooks;
-import co.tz.malipopay.exceptions.WebhookVerificationException;
+import tz.co.malipopay.Webhooks;
+import tz.co.malipopay.exceptions.WebhookVerificationException;
 
 import javax.servlet.http.*;
 import java.io.BufferedReader;

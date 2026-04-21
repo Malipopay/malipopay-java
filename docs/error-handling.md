@@ -15,15 +15,15 @@ MalipopayException (extends RuntimeException)
   |-- ConnectionException        (network/timeout)
 ```
 
-All exception classes live under `co.tz.malipopay.exceptions`.
+All exception classes live under `tz.co.malipopay.exceptions`.
 
 ## Catching All Errors
 
 The simplest approach -- catch `MalipopayException` to handle any SDK error:
 
 ```java
-import co.tz.malipopay.Malipopay;
-import co.tz.malipopay.exceptions.MalipopayException;
+import tz.co.malipopay.Malipopay;
+import tz.co.malipopay.exceptions.MalipopayException;
 
 Malipopay malipopay = new Malipopay("your-api-key");
 
@@ -47,7 +47,7 @@ try {
 Thrown when your API key is invalid, expired, or missing.
 
 ```java
-import co.tz.malipopay.exceptions.AuthenticationException;
+import tz.co.malipopay.exceptions.AuthenticationException;
 
 try {
     malipopay.payments().collect(params);
@@ -68,7 +68,7 @@ try {
 Thrown when your API key is valid but lacks permission for the action.
 
 ```java
-import co.tz.malipopay.exceptions.PermissionException;
+import tz.co.malipopay.exceptions.PermissionException;
 
 try {
     malipopay.payments().disburse(params);
@@ -83,7 +83,7 @@ try {
 Thrown when the resource doesn't exist.
 
 ```java
-import co.tz.malipopay.exceptions.NotFoundException;
+import tz.co.malipopay.exceptions.NotFoundException;
 
 try {
     malipopay.payments().get("PAY-DOES-NOT-EXIST");
@@ -97,7 +97,7 @@ try {
 Thrown when request parameters are invalid. Provides access to field-level errors:
 
 ```java
-import co.tz.malipopay.exceptions.ValidationException;
+import tz.co.malipopay.exceptions.ValidationException;
 
 try {
     Map<String, Object> params = new HashMap<>();
@@ -123,7 +123,7 @@ try {
 Thrown when you've sent too many requests.
 
 ```java
-import co.tz.malipopay.exceptions.RateLimitException;
+import tz.co.malipopay.exceptions.RateLimitException;
 
 try {
     malipopay.payments().collect(params);
@@ -141,7 +141,7 @@ try {
 Thrown when the Malipopay server encounters an internal error. These are transient -- retrying usually works.
 
 ```java
-import co.tz.malipopay.exceptions.ApiException;
+import tz.co.malipopay.exceptions.ApiException;
 
 try {
     malipopay.payments().collect(params);
@@ -156,7 +156,7 @@ try {
 Thrown when the SDK can't connect to the API -- DNS failure, timeout, SSL error, etc.
 
 ```java
-import co.tz.malipopay.exceptions.ConnectionException;
+import tz.co.malipopay.exceptions.ConnectionException;
 
 try {
     malipopay.payments().collect(params);
@@ -171,7 +171,7 @@ try {
 For production code, handle from most specific to least specific:
 
 ```java
-import co.tz.malipopay.exceptions.*;
+import tz.co.malipopay.exceptions.*;
 
 try {
     Map<String, Object> params = new HashMap<>();
@@ -226,8 +226,8 @@ try {
 ### Exponential Backoff Example
 
 ```java
-import co.tz.malipopay.Malipopay;
-import co.tz.malipopay.exceptions.*;
+import tz.co.malipopay.Malipopay;
+import tz.co.malipopay.exceptions.*;
 
 import java.util.Map;
 

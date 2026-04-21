@@ -1,7 +1,7 @@
-package co.tz.malipopay;
+package tz.co.malipopay;
 
-import co.tz.malipopay.resources.*;
-import co.tz.malipopay.webhooks.Webhooks;
+import tz.co.malipopay.resources.*;
+import tz.co.malipopay.webhooks.Webhooks;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

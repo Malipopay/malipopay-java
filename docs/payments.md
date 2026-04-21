@@ -21,8 +21,8 @@ Collection triggers a USSD push to the customer's phone. The customer confirms t
 ### Basic Collection
 
 ```java
-import co.tz.malipopay.Malipopay;
-import co.tz.malipopay.exceptions.MalipopayException;
+import tz.co.malipopay.Malipopay;
+import tz.co.malipopay.exceptions.MalipopayException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -281,10 +281,10 @@ Map<String, Object> dateResults = malipopay.payments().search(dateQuery);
 ## Typical Collection Flow
 
 ```java
-import co.tz.malipopay.Malipopay;
-import co.tz.malipopay.MalipopayConfig;
-import co.tz.malipopay.exceptions.MalipopayException;
-import co.tz.malipopay.exceptions.ValidationException;
+import tz.co.malipopay.Malipopay;
+import tz.co.malipopay.MalipopayConfig;
+import tz.co.malipopay.exceptions.MalipopayException;
+import tz.co.malipopay.exceptions.ValidationException;
 
 import java.util.HashMap;
 import java.util.Map;

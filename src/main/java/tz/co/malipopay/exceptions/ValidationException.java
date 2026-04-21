@@ -1,4 +1,4 @@
-package co.tz.malipopay.exceptions;
+package tz.co.malipopay.exceptions;
 
 /**
  * Thrown when the API returns a 422 Unprocessable Entity response.

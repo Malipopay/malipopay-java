@@ -1,4 +1,4 @@
-package co.tz.malipopay;
+package tz.co.malipopay;
 
 /**
  * Generic API response wrapper returned by all SDK methods.

@@ -1,6 +1,6 @@
-import co.tz.malipopay.ApiResponse;
-import co.tz.malipopay.Malipopay;
-import co.tz.malipopay.MalipopayConfig;
+import tz.co.malipopay.ApiResponse;
+import tz.co.malipopay.Malipopay;
+import tz.co.malipopay.MalipopayConfig;
 
 import java.util.HashMap;
 import java.util.Map;

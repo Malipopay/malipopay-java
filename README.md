@@ -10,7 +10,7 @@ Requires **Java 11+**.
 
 ```xml
 <dependency>
-    <groupId>co.tz.malipopay</groupId>
+    <groupId>tz.co.malipopay</groupId>
     <artifactId>malipopay-java</artifactId>
     <version>1.1.0</version>
 </dependency>
@@ -19,14 +19,14 @@ Requires **Java 11+**.
 ### Gradle
 
 ```groovy
-implementation 'co.tz.malipopay:malipopay-java:1.1.0'
+implementation 'tz.co.malipopay:malipopay-java:1.1.0'
 ```
 
 ## Quick Start
 
 ```java
-import co.tz.malipopay.Malipopay;
-import co.tz.malipopay.ApiResponse;
+import tz.co.malipopay.Malipopay;
+import tz.co.malipopay.ApiResponse;
 
 import java.util.Map;
 
@@ -46,7 +46,7 @@ System.out.println(response.getData());
 ## Configuration
 
 ```java
-import co.tz.malipopay.MalipopayConfig;
+import tz.co.malipopay.MalipopayConfig;
 
 MalipopayConfig config = new MalipopayConfig.Builder()
     .environment(MalipopayConfig.Environment.UAT)  // or PRODUCTION (default)
@@ -171,7 +171,7 @@ client.references().institutions();
 Verify and parse incoming webhook events:
 
 ```java
-import co.tz.malipopay.webhooks.Webhooks;
+import tz.co.malipopay.webhooks.Webhooks;
 
 // Via the client (uses config webhookSecret)
 boolean valid = client.webhooks().verify(rawBody, signatureHeader);
@@ -187,7 +187,7 @@ Map<String, Object> event = webhooks.constructEvent(rawBody, signatureHeader);
 The SDK throws typed exceptions for different error scenarios:
 
 ```java
-import co.tz.malipopay.exceptions.*;
+import tz.co.malipopay.exceptions.*;
 
 try {
     client.payments().collect(params);

@@ -7,9 +7,9 @@ All customer methods are accessed via `malipopay.customers()`.
 ## Creating a Customer
 
 ```java
-import co.tz.malipopay.Malipopay;
-import co.tz.malipopay.exceptions.ValidationException;
-import co.tz.malipopay.exceptions.MalipopayException;
+import tz.co.malipopay.Malipopay;
+import tz.co.malipopay.exceptions.ValidationException;
+import tz.co.malipopay.exceptions.MalipopayException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -126,9 +126,9 @@ try {
 ## Complete Example: Onboarding Flow
 
 ```java
-import co.tz.malipopay.Malipopay;
-import co.tz.malipopay.exceptions.MalipopayException;
-import co.tz.malipopay.exceptions.NotFoundException;
+import tz.co.malipopay.Malipopay;
+import tz.co.malipopay.exceptions.MalipopayException;
+import tz.co.malipopay.exceptions.NotFoundException;
 
 import java.util.HashMap;
 import java.util.Map;

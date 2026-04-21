@@ -1,4 +1,4 @@
-package co.tz.malipopay.exceptions;
+package tz.co.malipopay.exceptions;
 
 /**
  * Base exception for all Malipopay SDK errors.

@@ -1,7 +1,7 @@
-package co.tz.malipopay;
+package tz.co.malipopay;
 
-import co.tz.malipopay.exceptions.MalipopayException;
-import co.tz.malipopay.webhooks.Webhooks;
+import tz.co.malipopay.exceptions.MalipopayException;
+import tz.co.malipopay.webhooks.Webhooks;
 import org.junit.jupiter.api.Test;
 
 import javax.crypto.Mac;

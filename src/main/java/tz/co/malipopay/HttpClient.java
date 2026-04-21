@@ -1,6 +1,6 @@
-package co.tz.malipopay;
+package tz.co.malipopay;
 
-import co.tz.malipopay.exceptions.*;
+import tz.co.malipopay.exceptions.*;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;

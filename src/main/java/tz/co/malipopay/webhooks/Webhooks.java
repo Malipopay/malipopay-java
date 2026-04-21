@@ -1,6 +1,6 @@
-package co.tz.malipopay.webhooks;
+package tz.co.malipopay.webhooks;
 
-import co.tz.malipopay.exceptions.MalipopayException;
+import tz.co.malipopay.exceptions.MalipopayException;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 

@@ -1,4 +1,4 @@
-package co.tz.malipopay.exceptions;
+package tz.co.malipopay.exceptions;
 
 /**
  * Thrown when a network or connection error occurs.

@@ -7,8 +7,8 @@ All SMS methods are accessed via `malipopay.sms()`.
 ## Sending a Single SMS
 
 ```java
-import co.tz.malipopay.Malipopay;
-import co.tz.malipopay.exceptions.MalipopayException;
+import tz.co.malipopay.Malipopay;
+import tz.co.malipopay.exceptions.MalipopayException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -153,8 +153,8 @@ Bad sender IDs: `My Shop` (spaces), `A_VERY_LONG_NAME` (too long), `$CASH$` (spe
 ## Complete Example: Payment Receipt via SMS
 
 ```java
-import co.tz.malipopay.Malipopay;
-import co.tz.malipopay.exceptions.MalipopayException;
+import tz.co.malipopay.Malipopay;
+import tz.co.malipopay.exceptions.MalipopayException;
 
 import java.util.HashMap;
 import java.util.Map;

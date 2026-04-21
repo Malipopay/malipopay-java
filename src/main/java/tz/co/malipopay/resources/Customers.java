@@ -1,7 +1,7 @@
-package co.tz.malipopay.resources;
+package tz.co.malipopay.resources;
 
-import co.tz.malipopay.ApiResponse;
-import co.tz.malipopay.HttpClient;
+import tz.co.malipopay.ApiResponse;
+import tz.co.malipopay.HttpClient;
 
 import java.util.Map;
 
